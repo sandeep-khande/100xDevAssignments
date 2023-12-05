@@ -45,16 +45,16 @@ function calculateTotalSpentByCategory(transactions) {
   for (const transaction of transactions) {
     const { category, price } = transaction;
 
-    // condition: check whether it doesn't exist in categoryTotals
+    
     if (!categoryTotals.hasOwnProperty(category)) {
       categoryTotals[category] = price;
     } else {
-      // if it's already exist
+      
       categoryTotals[category] += price;
     }
   }
 
-  // now, convert categoryTotals Object in individual Category Object in an Array
+  
   const finalList = Object.keys(categoryTotals).map((category) => {
     return { category: category, totalSpent: categoryTotals[category] };
   });
