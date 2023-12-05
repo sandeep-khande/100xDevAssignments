@@ -4,20 +4,20 @@
 */
 
 function isPalindrome(str) {
-  // remove non-alphanumeric characters, convert to lowercase
+  // removing non-alphanumeric characters, convert to lowercase
   str = str.replace(/[^A-Za-z0-9]/g, "").toLowerCase();
 
   for (let i = 0; i < str.length / 2; i++) {
     if (str.charAt(i) !== str.charAt(str.length - 1 - i)) {
-      return false; // Not a palindrome
+      return false; 
     }
   }
 
-  return true; // Palindrome
+  return true; 
 }
 
-// let str = "axyza"; // false
-let str = "racecar"; // true
+
+let str = "sos";
 let ans = isPalindrome(str);
 console.log(ans);
 
