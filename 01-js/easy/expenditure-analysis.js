@@ -5,8 +5,64 @@
   Output - [{ category1 - total_amount_spent_on_category1 }, { category2 - total_amount_spent_on_category2 }]
 */
 
+let transactions = [
+  {
+    itemName: "shampoo",
+    category: "grocery",
+    price: 45.0,
+    timestammp: "2023-11-04",
+  },
+  {
+    itemName: "fruits",
+    category: "grocery",
+    price: 55.0,
+    timestammp: "2023-11-07",
+  },
+  {
+    itemName: "Headphones",
+    category: "electronics",
+    price: 450.0,
+    timestammp: "2023-11-09",
+  },
+  {
+    itemName: "Phone",
+    category: "electronics",
+    price: 4500.0,
+    timestammp: "2023-11-08",
+  },
+  {
+    itemName: "tab",
+    category: "electronics",
+    price: 4200.0,
+    timestammp: "2023-11-06",
+  }
+]
+
+
 function calculateTotalSpentByCategory(transactions) {
-  return [];
+  const categoryTotals = {};
+
+  for (const transaction of transactions) {
+    const { category, price } = transaction;
+
+    // condition: check whether it doesn't exist in categoryTotals
+    if (!categoryTotals.hasOwnProperty(category)) {
+      categoryTotals[category] = price;
+    } else {
+      // if it's already exist
+      categoryTotals[category] += price;
+    }
+  }
+
+  // now, convert categoryTotals Object in individual Category Object in an Array
+  const finalList = Object.keys(categoryTotals).map((category) => {
+    return { category: category, totalSpent: categoryTotals[category] };
+  });
+
+  return finalList;
 }
+
+let finalList = calculateTotalSpentByCategory(transactions);
+console.log(finalList);
 
 module.exports = calculateTotalSpentByCategory;
