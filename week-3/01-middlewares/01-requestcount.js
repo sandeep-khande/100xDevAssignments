@@ -5,6 +5,14 @@ const express = require('express');
 const app = express();
 let requestCount = 0;
 
+const numberOfRequests = (req, res, next) => {
+  requestCount++;
+  // console.log(`Number Of Request: ${requestCount}`);
+  next()
+}
+
+app.use(numberOfRequests);
+
 // You have been given an express server which has a few endpoints.
 // Your task is to create a global middleware (app.use) which will
 // maintain a count of the number of requests made to the server in the global
@@ -21,5 +29,9 @@ app.post('/user', function(req, res) {
 app.get('/requestCount', function(req, res) {
   res.status(200).json({ requestCount });
 });
+
+app.listen(3000, () => {
+  console.log("app is listening at port 3000");
+})
 
 module.exports = app;

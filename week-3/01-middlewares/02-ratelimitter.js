@@ -16,6 +16,20 @@ setInterval(() => {
     numberOfRequestsForUser = {};
 }, 1000)
 
+const limit = (req, res, next) => {
+  const userId = req.headers['user-id']
+  if (!userId) {
+    return res.status(400).send("Invalid userId")
+  }
+  numberOfRequestsForUser[userId] = (numberOfRequestsForUser[userId] || 0) + 1;
+  if (numberOfRequestsForUser[userId] > 5) {
+    return res.status(404).send("Rate limit exceded")
+  }
+  next();
+}
+
+app.use(limit);
+
 app.get('/user', function(req, res) {
   res.status(200).json({ name: 'john' });
 });
@@ -23,5 +37,6 @@ app.get('/user', function(req, res) {
 app.post('/user', function(req, res) {
   res.status(200).json({ msg: 'created dummy user' });
 });
+
 
 module.exports = app;
